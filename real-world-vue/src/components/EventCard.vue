@@ -4,9 +4,7 @@
     :to="{ name: 'event-show', params: { id: event.id } }"
   >
     <div class="event-card -shadow">
-      <span class="eyebrow"
-        >@{{ event.time }} on {{ formatedDate(event.date) }}</span
-      >
+      <span class="eyebrow">@{{ event.time }} on {{ event.date }}</span>
       <h4 class="title">{{ event.title }}</h4>
       <BaseIcon name="users">{{ event.attendees.length }} attending</BaseIcon>
     </div>
@@ -18,11 +16,6 @@ export default {
   props: {
     event: {
       type: Object
-    }
-  },
-  methods: {
-    formatedDate(date) {
-      return new Date(date)
     }
   }
 }
