@@ -4,6 +4,7 @@ var app = new Vue({
         product: "Socks",
         image: "./assets/socks-green.jpg",
         inStock: true,
+        cart: 0,
         details: [
             "80% cotton",
             "20% polyester",
@@ -12,12 +13,23 @@ var app = new Vue({
         variants: [
             {
                 variantId: 3108,
-                variantColor: "green"
+                variantColor: "green",
+                variantImage: "./assets/socks-green.jpg"
             },
             {
                 variantId: 3109,
-                variantColor: "blue"
+                variantColor: "blue",
+                variantImage: "./assets/socks-blue.jpg"
             }
         ]
+    },
+    methods: {
+        addToCart() {
+            this.cart += 1
+        },
+        updateProduct(image) {
+            this.image = image
+        }
     }
+
 });
