@@ -1,9 +1,9 @@
 var app = new Vue({
     el: '#app',
     data: {
+        brand: "Mickey",
         product: "Socks",
-        image: "./assets/socks-green.jpg",
-        inStock: true,
+        selectedVariant: 0,
         cart: 0,
         details: [
             "80% cotton",
@@ -14,12 +14,14 @@ var app = new Vue({
             {
                 variantId: 3108,
                 variantColor: "green",
-                variantImage: "./assets/socks-green.jpg"
+                variantImage: "./assets/socks-green.jpg",
+                variantQuantity: 10,
             },
             {
                 variantId: 3109,
                 variantColor: "blue",
-                variantImage: "./assets/socks-blue.jpg"
+                variantImage: "./assets/socks-blue.jpg",
+                variantQuantity: 0
             }
         ]
     },
@@ -27,8 +29,19 @@ var app = new Vue({
         addToCart() {
             this.cart += 1
         },
-        updateProduct(image) {
-            this.image = image
+        updateProduct(index) {
+            this.selectedVariant = index
+        }
+    },
+    computed: {
+        title() {
+            return this.brand + ' ' + this.product
+        },
+        image() {
+            return this.variants[this.selectedVariant].variantImage
+        },
+        inStock() {
+            return this.variants[this.selectedVariant].variantQuantity
         }
     }
 
