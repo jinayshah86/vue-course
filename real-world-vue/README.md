@@ -16,4 +16,33 @@
 - It allows us to write our HTML, CSS & JavaScript however we like We can use single-file .vue components, TypeScript, SCSS, Pug, the latest versions of ECMAScript, etc.
 - It enables Hot Module Replacement (HMR) So when you save your project, changes appear instantly in the browser. This configuration is based on webpack-dev-server.
 
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
 `Jinay Shah`
