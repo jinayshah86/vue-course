@@ -118,6 +118,7 @@ Vue.component('product-review', {
     template: `
         <form class="review-form" @submit.prevent="onSubmit">
             
+            <!--Displaying errors-->
             <p v-if="errors.length">
                 <b>Please correct the following error(s):</b>
                 <ul>
@@ -125,6 +126,7 @@ Vue.component('product-review', {
                 </ul>
             </p>
         
+            <!--Name Form Field-->
             <p>
                 <label for="name">Name:</label>
                 <!--v-model is used for two-way binding 
@@ -133,11 +135,13 @@ Vue.component('product-review', {
                 <input id="name" v-model="name" placeholder="name">
             </p>
             
+            <!--Review Form Field-->
             <p>
                 <label for="review">Review:</label>      
                 <textarea id="review" v-model="review"></textarea>
             </p>
             
+            <!--Rating Form Field-->
             <p>
                 <label for="rating">Rating:</label>
                 <select id="rating" v-model.number="rating">
@@ -166,6 +170,7 @@ Vue.component('product-review', {
     methods: {
         onSubmit() {
             if (this.name && this.review && this.rating) {
+                // Error free Form
                 let productReview = {
                     name: this.name,
                     review: this.review,
@@ -178,6 +183,7 @@ Vue.component('product-review', {
                 this.review = null
                 this.rating = null
             } else {
+                // Capturing errors
                 this.errors = []
                 if (!this.name) this.errors.push("Name required.")
                 if (!this.review) this.errors.push("Review required.")
