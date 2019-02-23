@@ -1,6 +1,9 @@
 # Real World Vue.js
+
 ### This is the codebase for Intro to Real World Vue.js
+
 #### Topics Included
+
 - Vue CLI
 - Vue UI
 - Vue Routers
@@ -17,32 +20,39 @@
 - It enables Hot Module Replacement (HMR) So when you save your project, changes appear instantly in the browser. This configuration is based on webpack-dev-server.
 
 ## Project setup
+
 ```
 npm install
+npm i -g json-serve
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
+json-serve --wathc db.json
 ```
 
 ### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
 ### Run your tests
+
 ```
 npm run test
 ```
 
 ### Lints and fixes files
+
 ```
 npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 `Jinay Shah`
