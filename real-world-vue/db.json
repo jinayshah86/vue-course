@@ -1,6 +1,5 @@
 {
-  "events": [
-    {
+  "events": [{
       "id": 1,
       "title": "Beach Cleanup",
       "date": "Aug 28 2018",
@@ -9,8 +8,7 @@
       "description": "Let's clean up this beach.",
       "organizer": "Adam Jahr",
       "category": "sustainability",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "abc123",
           "name": "Adam Jahr"
         },
@@ -37,8 +35,7 @@
       "description": "We're going to clean up this park.",
       "organizer": "Adam Jahr",
       "category": "nature",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "ghi789",
           "name": "Beth Swanson"
         },
@@ -57,8 +54,7 @@
       "description": "Help animals find new homes.",
       "organizer": "Gregg Pollack",
       "category": "animal welfare",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "abc123",
           "name": "Adam Jahr"
         },
@@ -81,8 +77,7 @@
       "description": "Let's clean up this beach.",
       "organizer": "Adam Jahr",
       "category": "sustainability",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "abc123",
           "name": "Adam Jahr"
         },
@@ -109,8 +104,7 @@
       "description": "We're going to clean up this park.",
       "organizer": "Adam Jahr",
       "category": "nature",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "ghi789",
           "name": "Beth Swanson"
         },
@@ -129,8 +123,7 @@
       "description": "Help animals find new homes.",
       "organizer": "Gregg Pollack",
       "category": "animal welfare",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "abc123",
           "name": "Adam Jahr"
         },
@@ -153,8 +146,7 @@
       "description": "Let's clean up this beach.",
       "organizer": "Adam Jahr",
       "category": "sustainability",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "abc123",
           "name": "Adam Jahr"
         },
@@ -181,8 +173,7 @@
       "description": "We're going to clean up this park.",
       "organizer": "Adam Jahr",
       "category": "nature",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "ghi789",
           "name": "Beth Swanson"
         },
@@ -201,8 +192,7 @@
       "description": "Help animals find new homes.",
       "organizer": "Gregg Pollack",
       "category": "animal welfare",
-      "attendees": [
-        {
+      "attendees": [{
           "id": "abc123",
           "name": "Adam Jahr"
         },
@@ -250,24 +240,6 @@
       "time": "7:00",
       "attendees": [],
       "description": "Hustle to live"
-    },
-    {
-      "id": 3408614,
-      "user": {
-        "id": "abc123",
-        "name": "Adam Jahr"
-      },
-      "category": "animal welfare",
-      "organizer": {
-        "id": "abc123",
-        "name": "Adam Jahr"
-      },
-      "title": "Puppy Parade",
-      "descrpition": "",
-      "location": "",
-      "date": "",
-      "time": "",
-      "attendees": []
     }
   ]
 }
