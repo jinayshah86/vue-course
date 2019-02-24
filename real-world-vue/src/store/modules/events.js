@@ -73,7 +73,7 @@ export const actions = {
         })
       })
   },
-  fetchEvent({ commit, getters, dispatch }, eventId) {
+  fetchEvent({ commit, getters }, eventId) {
     // Try to find it from store
     var event = getters.getEventById(eventId)
     // If it's there no need to make an API Call
@@ -84,21 +84,10 @@ export const actions = {
     // If it's not there make an API Call
     else {
       // Return the promise
-      return EventService.getEvent(eventId)
-        .then(response => {
-          commit('SET_EVENT', response.data)
-          return response.data // <--- Added return here
-        })
-        .catch(error => {
-          const notification = {
-            type: 'error',
-            message: 'There was a problem fetching event: ' + error.message
-          }
-          // Calling action of notification module
-          dispatch('notification/add', notification, {
-            root: true
-          })
-        })
+      return EventService.getEvent(eventId).then(response => {
+        commit('SET_EVENT', response.data)
+        return response.data // <--- Added return here
+      })
     }
   }
 }
