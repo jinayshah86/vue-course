@@ -250,6 +250,24 @@
       "time": "7:00",
       "attendees": [],
       "description": "Hustle to live"
+    },
+    {
+      "id": 3408614,
+      "user": {
+        "id": "abc123",
+        "name": "Adam Jahr"
+      },
+      "category": "animal welfare",
+      "organizer": {
+        "id": "abc123",
+        "name": "Adam Jahr"
+      },
+      "title": "Puppy Parade",
+      "descrpition": "",
+      "location": "",
+      "date": "",
+      "time": "",
+      "attendees": []
     }
   ]
 }
