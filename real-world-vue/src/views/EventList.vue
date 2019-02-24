@@ -2,13 +2,31 @@
   <div>
     <h1>List Event</h1>
     <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <!-- Only show previous page link if not on the first page -->
+    <template v-if="isFirstPage">
+      <router-link
+        :to="{ name: 'event-list', query: { page: page - 1 } }"
+        rel="prev"
+        >Prev</router-link
+      >
+    </template>
+    <template v-if="isFirstPage && isLastPage"
+      >&nbsp;|&nbsp;</template
+    >
+    <template v-if="isLastPage">
+      <router-link
+        :to="{ name: 'event-list', query: { page: page + 1 } }"
+        rel="next"
+        >Next</router-link
+      >
+    </template>
     <BaseIcon />
   </div>
 </template>
 
 <script>
 import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -16,17 +34,35 @@ export default {
   },
   data() {
     return {
-      events: []
+      pageLimit: 3
     }
   },
   created() {
-    EventService.getEvents()
-      .then(response => {
-        this.events = response.data
-      })
-      .catch(error => {
-        console.error('There was an error:' + error.response)
-      })
+    // Get list of Events from Vuex action
+    this.$store.dispatch('fetchEvents', {
+      pageLimit: this.pageLimit,
+      page: this.page
+    })
+  },
+
+  // mapState acts as a getter for Vuex State objects
+  // It requires an array of Vuex State objects to get
+  // Example: mapState(['events'])
+  // Or Alternate Key value mapping for each required Vuex State objects
+  // Example: mapState({a-events: 'events'})
+  computed: {
+    page() {
+      // Get page number from URL query VREyeParameter
+      // https://localhost:8080/?page=2
+      return parseInt(this.$route.query.page) || 1
+    },
+    isFirstPage() {
+      return this.page != 1 || false
+    },
+    isLastPage() {
+      return this.totalEvents > this.pageLimit * this.page
+    },
+    ...mapState(['events', 'totalEvents'])
   }
 }
 </script>
