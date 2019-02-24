@@ -1,48 +1,110 @@
 <template>
   <div>
     <form @submit.prevent="createEvent">
+      <!-- Category -->
       <BaseSelect
         label="Select a category"
         v-model="event.category"
         :options="categories"
         class="field"
+        :class="{ error: $v.event.category.$error }"
+        @blur="$v.event.category.$touch()"
       />
+      <template v-if="$v.event.category.$error">
+        <p v-if="!$v.event.category.required" class="errorMessage">
+          Category is required.
+        </p>
+      </template>
+
       <h3>Name & describe your event</h3>
+      <!-- Title -->
       <BaseInput
         label="Title"
         v-model="event.title"
         class="field"
         type="text"
         placeholder="Add an event title"
+        :class="{ error: $v.event.title.$error }"
+        @blur="$v.event.title.$touch()"
       />
+      <template v-if="$v.event.title.$error">
+        <p v-if="!$v.event.title.required" class="errorMessage">
+          Title is required.
+        </p>
+      </template>
+
+      <!-- Description -->
       <BaseInput
         label="Description"
         v-model="event.description"
         class="field"
         type="text"
         placeholder="Add a description"
+        :class="{ error: $v.event.description.$error }"
+        @blur="$v.event.description.$touch()"
       />
+      <template v-if="$v.event.description.$error">
+        <p v-if="!$v.event.description.required" class="errorMessage">
+          Description is required.
+        </p>
+      </template>
+
+      <!-- Location -->
       <BaseInput
         label="Location"
         v-model="event.location"
         class="field"
         type="text"
         placeholder="Add a location"
+        :class="{ error: $v.event.location.$error }"
+        @blur="$v.event.location.$touch()"
       />
+      <template v-if="$v.event.location.$error">
+        <p v-if="!$v.event.location.required" class="errorMessage">
+          Location is required.
+        </p>
+      </template>
+
+      <!-- Date -->
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
-        <datepicker v-model="event.date" placeholder="Select a date" />
+        <datepicker
+          v-model="event.date"
+          placeholder="Select a date"
+          :input-class="{ error: $v.event.date.$error }"
+          @opened="$v.event.date.$touch()"
+        />
       </div>
+      <template v-if="$v.event.date.$error">
+        <p v-if="!$v.event.date.required" class="errorMessage">
+          Date is required.
+        </p>
+      </template>
+
+      <!-- Time -->
       <BaseSelect
         label="Select a time"
         v-model="event.time"
         :options="times"
         class="field"
+        :class="{ error: $v.event.time.$error }"
+        @blur="$v.event.time.$touch()"
       />
-      <BaseButton type="submit" buttonClass="button -fill-gradient"
+      <template v-if="$v.event.time.$error">
+        <p v-if="!$v.event.time.required" class="errorMessage">
+          Time is required.
+        </p>
+      </template>
+
+      <!-- Submit -->
+      <BaseButton
+        type="submit"
+        buttonClass="button -fill-gradient"
+        :disabled="$v.$anyError"
         >Submit</BaseButton
       >
+      <p v-if="$v.$anyError">Please fill out the required field(s).</p>
     </form>
   </div>
 </template>
@@ -50,6 +112,7 @@
 <script>
 import Datepicker from '@codeanker/vuejs-datepicker'
 import NProgress from 'nprogress' // <--- Include NProgress
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   components: {
@@ -66,24 +129,37 @@ export default {
       event: this.createFreshEventObject()
     }
   },
+  validations: {
+    event: {
+      category: { required },
+      title: { required },
+      description: { required },
+      location: { required },
+      date: { required },
+      time: { required }
+    }
+  },
   methods: {
     createEvent() {
-      // Call vuex store action
-      NProgress.start() // <-- Start the progress bar
-      this.$store
-        .dispatch('event/createEvent', this.event)
-        .then(() => {
-          // Dispatchment Area
-          this.$router.push({
-            name: 'event-show',
-            params: { id: this.event.id }
+      this.$v.$touch() // Make every field dirty
+      if (!this.$v.$invalid) {
+        // Call vuex store action
+        NProgress.start() // <-- Start the progress bar
+        this.$store
+          .dispatch('event/createEvent', this.event)
+          .then(() => {
+            // Dispatchment Area
+            this.$router.push({
+              name: 'event-show',
+              params: { id: this.event.id }
+            })
+            this.event = this.createFreshEventObject()
           })
-          this.event = this.createFreshEventObject()
-        })
-        .catch(() => {
-          // Reset the Form here
-          NProgress.done() // <-- if errors out stop the progress bar
-        })
+          .catch(() => {
+            // Reset the Form here
+            NProgress.done() // <-- if errors out stop the progress bar
+          })
+      }
     },
     createFreshEventObject() {
       const user = this.$store.state.user.user
@@ -94,7 +170,7 @@ export default {
         category: '',
         organizer: user,
         title: '',
-        descrpition: '',
+        description: '',
         location: '',
         date: '',
         time: '',
