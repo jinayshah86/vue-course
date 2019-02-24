@@ -14,7 +14,8 @@ const router = new Router({
     {
       path: '/',
       name: 'event-list',
-      component: EventList
+      component: EventList,
+      props: true // We'll set the page parameter, so we want to send it in as a prop
     },
     {
       path: '/event/:id',

@@ -50,6 +50,7 @@
 
 <script>
 import Datepicker from '@codeanker/vuejs-datepicker'
+import NProgress from 'nprogress' // <--- Include NProgress
 
 export default {
   components: {
@@ -69,6 +70,7 @@ export default {
   methods: {
     createEvent() {
       // Call vuex store action
+      NProgress.start() // <-- Start the progress bar
       this.$store
         .dispatch('event/createEvent', this.event)
         .then(() => {
@@ -81,6 +83,7 @@ export default {
         })
         .catch(() => {
           // Reset the Form here
+          NProgress.done() // <-- if errors out stop the progress bar
         })
     },
     createFreshEventObject() {

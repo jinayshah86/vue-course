@@ -20,29 +20,46 @@
         >Next</router-link
       >
     </template>
-    <BaseIcon />
   </div>
 </template>
 
 <script>
 import EventCard from '@/components/EventCard.vue'
 import { mapState } from 'vuex'
+import store from '@/store/store'
+
+// Moved the current page & action call outside the component
+function getPageEvents(routeTo, next) {
+  const currentPage = parseInt(routeTo.query.page) || 1
+  store
+    .dispatch('event/fetchEvents', {
+      page: currentPage
+    })
+    .then(() => {
+      // pass it into the component as a prop, so we can print next pages
+      routeTo.params.page = currentPage
+      next()
+    })
+}
 
 export default {
+  props: {
+    page: {
+      // current page gets passed in as a prop
+      type: Number,
+      required: true
+    }
+  },
   components: {
     EventCard
   },
-  data() {
-    return {
-      pageLimit: 3
-    }
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    // Before we enter the route
+    getPageEvents(routeTo, next)
   },
-  created() {
-    // Get list of Events from Vuex action
-    this.$store.dispatch('event/fetchEvents', {
-      pageLimit: this.pageLimit,
-      page: this.page
-    })
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    // Before we update the route
+    getPageEvents(routeTo, next)
   },
 
   // mapState acts as a getter for Vuex State objects
@@ -51,16 +68,11 @@ export default {
   // Or Alternate Key value mapping for each required Vuex State objects
   // Example: mapState({event: state => state.event.event})
   computed: {
-    page() {
-      // Get page number from URL query VREyeParameter
-      // https://localhost:8080/?page=2
-      return parseInt(this.$route.query.page) || 1
-    },
     isFirstPage() {
       return this.page != 1 || false
     },
     isLastPage() {
-      return this.event.totalEvents > this.pageLimit * this.page
+      return this.event.totalEvents > this.event.pageLimit * this.page
     },
     ...mapState(['event', 'user'])
   }
