@@ -31,18 +31,35 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
+import NProgress from 'nprogress' // <--- Include the progress bar
+import store from '@/store/store' // <--- Include our Vuex store
 
 export default {
   props: ['id'],
-  created() {
-    // Vuex Store Action is being called
-    this.fetchEvent(this.id)
+
+  // beforeRouteEnter(routeTo, routeFrom, next)
+  // This is called before the component is created. Since the component has not been created yet, we can’t use the this keyword here.
+
+  // beforeRouteUpdate(routeTo, routeFrom, next)
+  // This is called when the route changes, but is still using the same component. An example here is when we paginate, and we switch from page to page but still using the same component. It does have access to “this”.
+
+  // beforeRouteLeave(routeTo, routeFrom, next)
+  // This is called when this component is navigated away from. It does have access to “this”.
+
+  // routeTo - This refers to the route that is about to be navigated to.
+  // routeFrom - This refers to the route that is about to be navigated away from.
+  // next - This is a function that must be called in each of them to resolve the hook, and continue navigation.
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    NProgress.start() // Start the progress bar
+    store.dispatch('event/fetchEvent', routeTo.params.id).then(() => {
+      NProgress.done() // When the action is done complete progress bar
+      next() // Only once this is called does the navigation continue
+    })
   },
   computed: mapState({
     event: state => state.event.event
-  }),
-  methods: mapActions('event', ['fetchEvent'])
+  })
 }
 </script>
 

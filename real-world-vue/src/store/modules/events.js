@@ -81,7 +81,8 @@ export const actions = {
     }
     // If it's not there make an API Call
     else {
-      EventService.getEvent(eventId)
+      // Return the promise
+      return EventService.getEvent(eventId)
         .then(response => {
           commit('SET_EVENT', response.data)
         })
