@@ -80,7 +80,7 @@ export default {
           this.event = this.createFreshEventObject()
         })
         .catch(() => {
-          console.error('There was a problem creating your event')
+          // Reset the Form here
         })
     },
     createFreshEventObject() {

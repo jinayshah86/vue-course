@@ -28,24 +28,51 @@ export const mutations = {
 // To call action of another module use
 // dispatch('moduleName/actionToCall', payload, { root: true })
 export const actions = {
-  createEvent({ commit }, event) {
+  createEvent({ commit, dispatch }, event) {
     // API Call
-    EventService.postEvent(event).then(() => {
-      // Call mutation
-      commit('ADD_EVENT', event)
-    })
+    return EventService.postEvent(event)
+      .then(() => {
+        // Call mutation
+        commit('ADD_EVENT', event)
+        const notification = {
+          type: 'success',
+          message: 'Your event has been successfully created!'
+        }
+        // Calling action of notification module
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem creating your event: ' + error.message
+        }
+        // Calling action of notification module
+        dispatch('notification/add', notification, {
+          root: true
+        })
+        throw error
+      })
   },
-  fetchEvents({ commit }, { pageLimit, page }) {
+  fetchEvents({ commit, dispatch }, { pageLimit, page }) {
     EventService.getEvents(pageLimit, page)
       .then(response => {
         commit('SET_TOTAL_EVENTS', response.headers['x-total-count'])
         commit('SET_EVENTS', response.data)
       })
       .catch(error => {
-        console.error('There was an error:' + error.response)
+        const notification = {
+          type: 'error',
+          message: 'There was a problem fetching events: ' + error.message
+        }
+        // Calling action of notification module
+        dispatch('notification/add', notification, {
+          root: true
+        })
       })
   },
-  fetchEvent({ commit, getters }, eventId) {
+  fetchEvent({ commit, getters, dispatch }, eventId) {
     // Try to find it from store
     var event = getters.getEventById(eventId)
     // If it's there no need to make an API Call
@@ -59,7 +86,14 @@ export const actions = {
           commit('SET_EVENT', response.data)
         })
         .catch(error => {
-          console.error('An error has occured: ', error.response)
+          const notification = {
+            type: 'error',
+            message: 'There was a problem fetching event: ' + error.message
+          }
+          // Calling action of notification module
+          dispatch('notification/add', notification, {
+            root: true
+          })
         })
     }
   }
