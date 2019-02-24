@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>List Event</h1>
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <h1>Events for {{ user.user.name }}</h1>
+    <EventCard v-for="event in event.events" :key="event.id" :event="event" />
     <!-- Only show previous page link if not on the first page -->
     <template v-if="isFirstPage">
       <router-link
@@ -39,7 +39,7 @@ export default {
   },
   created() {
     // Get list of Events from Vuex action
-    this.$store.dispatch('fetchEvents', {
+    this.$store.dispatch('event/fetchEvents', {
       pageLimit: this.pageLimit,
       page: this.page
     })
@@ -49,7 +49,7 @@ export default {
   // It requires an array of Vuex State objects to get
   // Example: mapState(['events'])
   // Or Alternate Key value mapping for each required Vuex State objects
-  // Example: mapState({a-events: 'events'})
+  // Example: mapState({event: state => state.event.event})
   computed: {
     page() {
       // Get page number from URL query VREyeParameter
@@ -60,9 +60,9 @@ export default {
       return this.page != 1 || false
     },
     isLastPage() {
-      return this.totalEvents > this.pageLimit * this.page
+      return this.event.totalEvents > this.pageLimit * this.page
     },
-    ...mapState(['events', 'totalEvents'])
+    ...mapState(['event', 'user'])
   }
 }
 </script>
