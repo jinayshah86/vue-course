@@ -78,6 +78,7 @@ export const actions = {
     // If it's there no need to make an API Call
     if (event) {
       commit('SET_EVENT', event)
+      return event // <--- Added return here
     }
     // If it's not there make an API Call
     else {
@@ -85,6 +86,7 @@ export const actions = {
       return EventService.getEvent(eventId)
         .then(response => {
           commit('SET_EVENT', response.data)
+          return response.data // <--- Added return here
         })
         .catch(error => {
           const notification = {
