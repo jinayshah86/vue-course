@@ -10,6 +10,7 @@ const apiClient = axios.create({
   }
 })
 
+// These interceptors acts like middleware
 // Caveat #1 - Not optimal for multiple API calls at the same time
 // Caveat #2 - Templates get rendered before the API call is returned
 

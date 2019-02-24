@@ -30,7 +30,18 @@ npm i -g json-serve
 
 ```
 npm run serve
-json-serve --wathc db.json
+```
+
+### Run Mock API Server
+
+```
+json-serve --watch db.json
+```
+
+### Run Mock API Server with delay
+
+```
+json-serve -d 1500 --watch db.json
 ```
 
 ### Compiles and minifies for production
