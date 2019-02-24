@@ -1,37 +1,32 @@
 <template>
   <div>
-    <!-- <h1>Create Event, {{ user.name }}</h1> -->
     <form @submit.prevent="createEvent">
       <label>Select a category</label>
       <select v-model="event.category">
         <option v-for="cat in categories" :key="cat">{{ cat }}</option>
       </select>
       <h3>Name & describe your event</h3>
-      <div class="field">
-        <label>Title</label>
-        <input
-          v-model="event.title"
-          type="text"
-          placeholder="Add an event title"
-        />
-      </div>
-      <div class="field">
-        <label>Description</label>
-        <input
-          v-model="event.description"
-          type="text"
-          placeholder="Add a description"
-        />
-      </div>
-      <h3>Where is your event?</h3>
-      <div class="field">
-        <label>Location</label>
-        <input
-          v-model="event.location"
-          type="text"
-          placeholder="Add a location"
-        />
-      </div>
+      <BaseInput
+        label="Title"
+        v-model="event.title"
+        class="field"
+        type="text"
+        placeholder="Add an event title"
+      />
+      <BaseInput
+        label="Description"
+        v-model="event.description"
+        class="field"
+        type="text"
+        placeholder="Add a description"
+      />
+      <BaseInput
+        label="Location"
+        v-model="event.location"
+        class="field"
+        type="text"
+        placeholder="Add a location"
+      />
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
