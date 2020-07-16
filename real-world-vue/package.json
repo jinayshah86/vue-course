@@ -10,7 +10,7 @@
   "dependencies": {
     "@codeanker/vuejs-datepicker": "^1.5.8",
     "axios": "^0.18.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "node-sass": "^4.11.0",
     "nprogress": "^0.2.0",
     "sass-loader": "^7.1.0",
